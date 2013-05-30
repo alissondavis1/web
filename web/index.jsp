@@ -25,9 +25,25 @@ div {
 			Class.forName("org.postgresql.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost/javaee","postgres","123");
 			//out.println("Conexão com sucesso");
-			PreparedStatement ps = conn.prepareStatement("select * from login");
-                        ResultSet rs = ps.executeQuery();
+			PreparedStatement ps = conn.prepareStatement("select * from login where nome = ? and senha = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                         
+                        String usuario = request.getParameter("usuario");
+                        String senha = request.getParameter("senha");
+                        ps.setString(1, usuario);
+                        ps.setString(2, senha);
+                        ResultSet rs = ps.executeQuery();
+                       
+                        if(usuario != null && senha != null){
+                        if(rs.first()){
+                            
+                            out.println("Bem vindo ao sistema");
+                        }else{
+                            
+                            out.println("Senha ou usuario incorreto");
+                        }
+                                            }
+                        
+                       
 			 
 		 }catch(Exception e){
 			
@@ -39,13 +55,13 @@ div {
 
    <div><img src="imagens/contas.jpg" width="405" height="165" />
    </div>
-   <form id="form1" name="form1" method="post" action="">
+   <form id="form1" name="form1" method="post" action="index.jsp">
      <p>Usuário   
-       <label for="Usuario"></label>
-     <input type="text" name="Usuario" id="Usuario" />
+       <label  for="Usuario"></label>
+     <input name="usuario" type="text" name="Usuario" id="Usuario" />
      Senha
      <label for="Senha"></label>
-     <input type="password" name="Senha" id="Senha" />
+     <input name="senha" type="password" name="Senha" id="Senha" />
      <input type="submit" name="Logar" id="Logar" value="Logar" />
      </p>
      <p>&nbsp;</p>
