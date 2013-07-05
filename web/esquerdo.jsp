@@ -20,6 +20,12 @@ a:visited{
     
     color:#F00;
 }
+p{
+	text-align: center;
+	border-width:3px;
+	border-style:groove;
+	border-color:#FFF;
+}
 
 </style>
 </head>
@@ -34,7 +40,6 @@ a:visited{
 <p>Funcionarios</p>
 <p><a href="usuario.jsp" target="mainFrame">Usuários</a></p>
 <p>Produtos</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
 </body>
 </html>

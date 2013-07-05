@@ -6,7 +6,7 @@
 </head>
 <frameset rows="*" cols="120,*" frameborder="no" border="0" framespacing="0">
   <frame src="esquerdo.jsp" name="leftFrame" scrolling="no" noresize="noresize" id="leftFrame" title="FrameEsquerdo" />
-  <frameset rows="161,*" cols="*" framespacing="0" frameborder="no" border="0">
+  <frameset rows="101,*" cols="*" framespacing="0" frameborder="no" border="0">
     <frame src="topo.jsp" name="topFrame" scrolling="no" noresize="noresize" id="topFrame" title="FrameTopo" />
     <frame src="principal.jsp" name="mainFrame" id="mainFrame" title="FramePrincipal" />
   </frameset>

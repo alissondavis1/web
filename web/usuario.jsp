@@ -6,6 +6,8 @@
 <title>Untitled Document</title>
 <style type="text/css">
 
+
+
 td {
 
 	text-align:center;	
@@ -21,7 +23,18 @@ div>p {
 }
 #imprimir{
 	position: relative;
-	left: 185px;
+	left: 280px;
+}
+#ordenação{
+	color: blue;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-weight: bold;
+}
+
+
+a:visited{
+    
+    color:blue;
 }
 
 
@@ -33,27 +46,49 @@ div>p {
 
 
 <div>
-<p><img src="imagens/cadastro.png" width="128" height="128" /></p>
-<table width="518" border="1" align="center">
+    <p><a href="cadastroUsuario.jsp"><img src="imagens/cadastro.png" width="95" height="87" /></a></p>
+<p id="ordenação">Ordenação: <a href="usuario.jsp?ordenacao=codigo">Código </a> - <a href="usuario.jsp?ordenacao=usuario">Usuário</a></p>
+<table width="615" border="1" align="center">
   <tr>
-    <td width="160" height="45">Código</td>
-    <td width="160">Usuário</td>
-    <td width="160">Senha</td>
-    <td width="160">Nivel de Acesso</td>
+    <td width="95" height="45" bgcolor="#CCCCCC">Código</td>
+    <td width="107" bgcolor="#CCCCCC">Usuário</td>
+    <td width="79" bgcolor="#CCCCCC">Senha</td>
+    <td width="121" bgcolor="#CCCCCC">Nivel de Acesso</td>
+    <td width="88" bgcolor="#CCCCCC">Editar</td>
+    <td width="85" bgcolor="#CCCCCC">Excluir</td>
   </tr>
     <%
+    
+    Connection conn = null;
+    PreparedStatement ps = null;
 	 try{
 			
 			//Class.forName("org.postgresql.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost/javaee","postgres","123");
+			conn = DriverManager.getConnection("jdbc:postgresql://localhost/javaee","postgres","123");
 			//out.println("Conexão com sucesso");
-			PreparedStatement ps = conn.prepareStatement("select * from login", ResultSet.TYPE_SCROLL_INSENSITIVE, 			     		ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = null;
                         
-                       
+                       if(request.getParameter("acao")!= null){
+                          
+                          ps = conn.prepareStatement("delete from login where id = ?");
+                           
+                           ps.setInt(1 ,Integer.parseInt(request.getParameter("codigo")));
+                           ps.executeUpdate();
+                       }
                       
-                        ResultSet rs = ps.executeQuery();
+                        if(request.getParameter("ordenacao") == null){
+                              ps = conn.prepareStatement("select * from login");									  
+                        rs = ps.executeQuery();  
                        
-                       
+                        }else if(request.getParameter("ordenacao").equals("codigo")){
+                            
+                          ps = conn.prepareStatement("select * from login order by id");									  
+                        rs = ps.executeQuery();
+                        }else if(request.getParameter("ordenacao").equals("usuario")){
+                            
+                            ps = conn.prepareStatement("select * from login order by nome");
+                            rs = ps.executeQuery();
+                        }
                        while(rs.next()){
                             
                            %>
@@ -62,6 +97,8 @@ div>p {
       <td><%=rs.getString("nome") %></td>
     <td><%=rs.getString("senha") %></td>
     <td><%=rs.getString("nivel")%></td>
+    <td><a href="editarUsuario.jsp?codigo=<%=rs.getInt("id")%>&usuario=<%=rs.getString("nome")%>&senha=<%=rs.getString("senha")%>&nivelAcesso=<%=rs.getString("nivel")%>"><img src="imagens/icon_objectives.gif"  width="48" height="48" /></a></td>
+    <td><a href="usuario.jsp?acao=excluir&codigo=<%=rs.getInt("id")%>"><img src="imagens/delete.png" width="48" height="48" /></a></td>
   </tr>
      <%
        }
@@ -70,15 +107,22 @@ div>p {
          
          out.println("Erro: "+e.getMessage());
          
-     }
+     }finally{
+         if(conn != null){
+         conn.close();
+                 }
+         if(ps != null){
+         ps.close();
+             }
+         }
 
                            
  %>
   
 </table>
-<p><img src="imagens/icon_objectives.gif"  width="48" height="48" /><img src="imagens/delete.png" width="48" height="48" /><img id="imprimir" src="imagens/icone_imprimir.jpg" width="48" height="48" /></p>
+<p><img id="imprimir" src="imagens/icone_imprimir.jpg" width="48" height="48" /></p>
 <p>&nbsp;</p>
 </div>
-<p>&nbsp;</p>
+
 </body>
 </html>

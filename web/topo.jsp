@@ -6,11 +6,12 @@
 <style type="text/css">
 body {
 	background-color: #CCC;
+       
 }
 </style>
 </head>
 
 <body>
-<img src="imagens/banner_java.jpg" width="1200" height="150" />
+<img src="imagens/banner_java.jpg" width="1200" height="100" />
 </body>
 </html>

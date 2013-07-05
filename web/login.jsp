@@ -52,7 +52,7 @@ div {
                        
 			 
 		 }catch(Exception e){
-			
+			e.printStackTrace();
 			out.println("Erro :"+e.getMessage()); 
 		 }
    
