@@ -42,21 +42,18 @@ a:visited{
 </head>
 
 <body>
-<p>Manutenção de Usuários</p>
+<p> Usuários</p>
 
 
 <div>
-    <p><a href="cadastroUsuario.jsp"><img src="imagens/cadastro.png" width="95" height="87" /></a></p>
-<p id="ordenação">Ordenação: <a href="usuario.jsp?ordenacao=codigo">Código </a> - <a href="usuario.jsp?ordenacao=usuario">Usuário</a></p>
-<table width="615" border="1" align="center">
+
+<table width="430" border="1" align="center">
   <tr>
     <td width="95" height="45" bgcolor="#CCCCCC">Código</td>
     <td width="107" bgcolor="#CCCCCC">Usuário</td>
     <td width="79" bgcolor="#CCCCCC">Senha</td>
     <td width="121" bgcolor="#CCCCCC">Nivel de Acesso</td>
-    <td width="88" bgcolor="#CCCCCC">Editar</td>
-    <td width="85" bgcolor="#CCCCCC">Excluir</td>
-  </tr>
+    </tr>
     <%
     
     Connection conn = null;
@@ -97,9 +94,7 @@ a:visited{
       <td><%=rs.getString("nome") %></td>
     <td><%=rs.getString("senha") %></td>
     <td><%=rs.getString("nivel")%></td>
-    <td><a href="editarUsuario.jsp?codigo=<%=rs.getInt("id")%>&usuario=<%=rs.getString("nome")%>&senha=<%=rs.getString("senha")%>&nivelAcesso=<%=rs.getString("nivel")%>"><img src="imagens/icon_objectives.gif"  width="48" height="48" /></a></td>
-    <td><a href="usuario.jsp?acao=excluir&codigo=<%=rs.getInt("id")%>"><img src="imagens/delete.png" width="48" height="48" /></a></td>
-  </tr>
+    </tr>
      <%
        }
          }
@@ -120,7 +115,10 @@ a:visited{
  %>
   
 </table>
- <p><a href="#" onclick=window.open("imprimeUsuario.jsp") ><img id="imprimir" src="imagens/icone_imprimir.jpg" width="48" height="48" /></a></p>
+<p>
+    
+    <input type="button" name="Imprimir" id="Imprimir" value="Imprimir" onclick="window.print()" />
+</p>
 <p>&nbsp;</p>
 </div>
 

@@ -42,19 +42,17 @@ a:visited{
 </head>
 
 <body>
-<p>Manutenção de Usuários</p>
+<p>Manutenção de Bairros</p>
 
 
 <div>
-    <p><a href="cadastroUsuario.jsp"><img src="imagens/cadastro.png" width="95" height="87" /></a></p>
-<p id="ordenação">Ordenação: <a href="usuario.jsp?ordenacao=codigo">Código </a> - <a href="usuario.jsp?ordenacao=usuario">Usuário</a></p>
+    <p><a href="cadastroBairro.jsp"><img src="imagens/cadastro.png" width="95" height="87" /></a></p>
+<p id="ordenação">Ordenação: <a href="bairro.jsp?ordenacao=codigo">Código </a> - <a href="bairro.jsp?ordenacao=nome">Nome</a></p>
 <table width="615" border="1" align="center">
   <tr>
     <td width="95" height="45" bgcolor="#CCCCCC">Código</td>
-    <td width="107" bgcolor="#CCCCCC">Usuário</td>
-    <td width="79" bgcolor="#CCCCCC">Senha</td>
-    <td width="121" bgcolor="#CCCCCC">Nivel de Acesso</td>
-    <td width="88" bgcolor="#CCCCCC">Editar</td>
+    <td width="79" bgcolor="#CCCCCC">Nome</td>
+  	<td width="88" bgcolor="#CCCCCC">Editar</td>
     <td width="85" bgcolor="#CCCCCC">Excluir</td>
   </tr>
     <%
@@ -70,35 +68,34 @@ a:visited{
                         
                        if(request.getParameter("acao")!= null){
                           
-                          ps = conn.prepareStatement("delete from login where id = ?");
+                          ps = conn.prepareStatement("delete from bairro where codigo = ?");
                            
                            ps.setInt(1 ,Integer.parseInt(request.getParameter("codigo")));
                            ps.executeUpdate();
                        }
                       
                         if(request.getParameter("ordenacao") == null){
-                              ps = conn.prepareStatement("select * from login");									  
+                              ps = conn.prepareStatement("select * from bairro");									  
                         rs = ps.executeQuery();  
                        
                         }else if(request.getParameter("ordenacao").equals("codigo")){
                             
-                          ps = conn.prepareStatement("select * from login order by id");									  
+                          ps = conn.prepareStatement("select * from bairro order by codigo");									  
                         rs = ps.executeQuery();
-                        }else if(request.getParameter("ordenacao").equals("usuario")){
+                        }else if(request.getParameter("ordenacao").equals("nome")){
                             
-                            ps = conn.prepareStatement("select * from login order by nome");
+                            ps = conn.prepareStatement("select * from bairro order by nome");
                             rs = ps.executeQuery();
                         }
                        while(rs.next()){
                             
                            %>
   <tr>
-      <td height="35"><%=rs.getInt("id") %> </td>
+      <td height="35"><%=rs.getInt("codigo") %> </td>
       <td><%=rs.getString("nome") %></td>
-    <td><%=rs.getString("senha") %></td>
-    <td><%=rs.getString("nivel")%></td>
-    <td><a href="editarUsuario.jsp?codigo=<%=rs.getInt("id")%>&usuario=<%=rs.getString("nome")%>&senha=<%=rs.getString("senha")%>&nivelAcesso=<%=rs.getString("nivel")%>"><img src="imagens/icon_objectives.gif"  width="48" height="48" /></a></td>
-    <td><a href="usuario.jsp?acao=excluir&codigo=<%=rs.getInt("id")%>"><img src="imagens/delete.png" width="48" height="48" /></a></td>
+    
+    <td><a href="editarBairro.jsp?codigo=<%=rs.getInt("codigo")%>&nome=<%=rs.getString("nome")%>" > <img src="imagens/icon_objectives.gif"  width="48" height="48" /></a></td>
+    <td><a href="bairro.jsp?acao=excluir&codigo=<%=rs.getInt("codigo")%>"><img src="imagens/delete.png" width="48" height="48" /></a></td>
   </tr>
      <%
        }
@@ -120,7 +117,7 @@ a:visited{
  %>
   
 </table>
- <p><a href="#" onclick=window.open("imprimeUsuario.jsp") ><img id="imprimir" src="imagens/icone_imprimir.jpg" width="48" height="48" /></a></p>
+ <p><a href="#" onclick=window.open("imprimeBairro.jsp") >  <img id="imprimir" src="imagens/icone_imprimir.jpg" width="48" height="48" /></a></p>
 <p>&nbsp;</p>
 </div>
 

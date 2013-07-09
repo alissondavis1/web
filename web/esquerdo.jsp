@@ -32,7 +32,7 @@ p{
 
 <body>
 <div>Menu</div>
-<p>Bairro</p>
+<p><a href="bairro.jsp" target="mainFrame">Bairro</a></p>
 <p>Cidades</p>
 <p>Endereços</p>
 <p>Cargos</p>
